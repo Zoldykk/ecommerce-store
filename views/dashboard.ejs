@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Electro-Market | Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../assets/css/dashboard.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <a href="/dashboard"
+            ><img src="../assets/images/logo.png" alt=""
+          /></a>
+        </div>
+
+        <div class="main-nav">
+          <div class="username">
+            <h2>Hi, <%= user.username%></h2>
+          </div>
+
+          <ul>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+          <div class="icons">
+            <a href="/logout"><i class="fas fa-power-off"></i></a>
+            <i class="fas fa-bars" onclick="toggleNavClasses()"></i>
+          </div>
+        </div>
+      </nav>
+      <main>
+        <div class="sidebar">
+          <ul>
+            <li class="item">
+              <a href="/dashboard" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li class="item">
+              <a href="/products" class="nav-item">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Products</span>
+              </a>
+            </li>
+            <li class="item">
+              <a href="/orders" class="nav-item">
+                <i class="fas fa-dolly"></i>
+                <span>Orders</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="main-panel">
+          <div class="card-wrapper">
+            <div class="card card-products">
+              <div class="card-header">
+                <i class="fas fa-shopping-cart"></i>
+                <div class="card-infos">
+                  <h1><%= products.length %></h1>
+                  <span>Products</span>
+                </div>
+              </div>
+              <div class="card-footer">
+                <a href="/products">View Details</a>
+                <a href="/products"><i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+
+            <div class="card card-customers">
+              <div class="card-header">
+                <i class="fas fa-users"></i>
+                <div class="card-infos">
+                  <h1><%= orders.length %></h1>
+                  <span>Customers</span>
+                </div>
+              </div>
+              <div class="card-footer">
+                <a href="/orders">View Details</a>
+                <a href="/orders"><i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+
+            <div class="card card-orders">
+              <div class="card-header">
+                <i class="fas fa-dolly"></i>
+                <div class="card-infos">
+                  <h1><%= orders.length %></h1>
+                  <span>Orders</span>
+                </div>
+              </div>
+              <div class="card-footer">
+                <a href="/orders#">View Details</a>
+                <a href="/orders"><i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="widgets">
+            <div class="orders-card">
+              <div class="section-header">
+                <span>Recent Orders</span>
+                <a href="/orders"
+                  >View Full List<i
+                    style="font-size: 15px; color: #e6351a"
+                    class="fas fa-arrow-circle-right"
+                  ></i>
+                </a>
+              </div>
+              <div class="orders-table">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Order ID</th>
+                      <th>Product Id</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% orders.forEach(order =>{ %> 
+                      <% let d = order.created_at.getDate(); %> 
+                      <% let m = order.created_at.getMonth(); %> 
+                      <% let y = order.created_at.getFullYear(); %>
+                    <tr>
+                      <td><%= `${d}/${m}/${y}`%></td>
+                      <td class="orderId-output"><%= order._id%></td> 
+                      <td><%= order.orderStatus%></td>
+                    </tr>
+                    <%})%>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="todo-card">
+              <div class="card-header"><span>Todo's</span></div>
+
+              <ul class="items-list"></ul>
+
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  class="items-input"
+                  placeholder="Write New item and hit 'Enter'"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      //Navigation
+      const burgerIcon = document.querySelector(".fa-bars");
+      const sidebar = document.querySelector(".sidebar");
+
+      function toggleNavClasses() {
+        sidebar.classList.toggle("nav-opened");
+
+        if (burgerIcon.classList.contains("fa-bars")) {
+          burgerIcon.classList.toggle("fa-times");
+        }
+      }
+      // Todo
+      const itemsList = document.querySelector(".items-list");
+      const itemsInput = document.querySelector(".items-input");
+
+      const addItems = (e) => {
+        if (e.key === "Enter") {
+          // Create Elements
+          const li = document.createElement("li");
+          const item = document.createElement("span");
+          const checkBox = document.createElement("input");
+          const deleteBtn = document.createElement("i");
+          // Append them to their parent
+          itemsList.appendChild(li);
+          li.appendChild(checkBox);
+          li.appendChild(item);
+          li.appendChild(deleteBtn);
+          // Adding attributes
+          checkBox.setAttribute("type", "checkbox");
+          li.setAttribute("class", "item");
+          checkBox.setAttribute("class", "checkbox");
+          item.setAttribute("class", "item-span");
+          deleteBtn.classList.add("far", "fa-trash-alt");
+          // Append created items to the list
+          item.innerHTML = itemsInput.value;
+          itemsInput.value = "";
+          // Delete Items
+          deleteBtn.addEventListener("click", (e) => {
+            e.target.parentNode.remove();
+          });
+          // Check done task
+          checkBox.addEventListener("click", () => {
+            const inputChecked = document.querySelector(".checkbox");
+            if (inputChecked.checked == true) {
+              item.style.textDecoration = "line-through";
+            } else {
+              item.style.textDecoration = "none";
+            }
+          });
+        }
+      };
+
+      itemsInput.addEventListener("keyup", addItems);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+<head>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+    <link rel="stylesheet" href="../assets/css/admin-login.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class='wrapper'>  
+          <form action="/" method="POST">
+            <div class='page__title'><h1>Login</h1></div>
+            <% if(typeof message != 'undefined') { %>
+              <% message.forEach( msg => { %>
+                  <div class="alertsBox"><span class="registerAlert"><%= msg.successMessage%></span> <span><i class="fas fa-times"></i></span></div>
+              <%}) %>
+            <%}%>
+             
+            
+            <% if(error_msg != '') { %>
+              <div class="alertsBox"><span class="errorAlert"><%= error_msg%></span> <span><i class="fas fa-times"></i></span></div>
+            <% } %> 
+
+            <% if(error != '') { %>
+              <div class="alertsBox"><span class="errorAlert"><%= error%></span> <span><i class="fas fa-times"></i></span></div>
+            <% } %>
+
+            
+            <div class='login__fields'>
+                <div><label for='username__input'>Username</label></div>
+                <input class='username__input' type='text' name='username'/>
+
+                <div><label for='password__input'>Password</label></div>
+                <input class='password__input' type='password' name='password'/>
+            </div>
+
+            <div class='login__buttons'>
+
+              <div>
+                <button type='submit' class='login__btn'>Login</button>
+              </div>
+
+              <div class='passReset__wrapper'>
+                <a href='#'>Forgot password?</a>
+              </div>  
+
+            </div>
+          </form>  
+        </div>    
+    </div>
+
+
+    <script>
+        const crossIcon = document.querySelector('.fa-times');
+
+        crossIcon.addEventListener('click', (e) =>{
+            e.target.parentNode.parentNode.remove()
+        })
+    </script>
+    
+</body>

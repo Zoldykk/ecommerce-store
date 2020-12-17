@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electro-Market | Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+    <link rel="stylesheet" href="./assets/css/products.css">
+
+</head>
+    <body>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                  <a href="/dashboard"
+                    ><img src="../assets/images/logo.png" alt=""
+                  /></a>
+                </div>
+        
+                <div class="main-nav">
+                  <div class="username">
+                    <h2>Hi, <%= user.username%></h2>
+                  </div>
+
+                  <ul>
+                    <li><a href="/logout">Logout</a></li>
+                  </ul>
+                  <div class="icons">
+                    <a href="/logout"><i class="fas fa-power-off"></i></a>
+                    <i class="fas fa-bars" onclick="toggleNavClasses()"></i>
+                  </div>
+                </div>
+              </nav>
+            <main>
+                
+                <div class="sidebar">
+                    <ul>
+                        <li class="item">
+                            <a href="/dashboard" class="nav-item">
+                                <i class="fas fa-home"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="item">
+                            <a href="/products" class="nav-item">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>Products</span>
+                            </a>
+                        </li>
+                        <li class="item">
+                            <a href="/orders" class="nav-item">
+                            <i class="fas fa-dolly"></i>
+                            <span>Orders</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="main-panel">
+                    <div class="panel-header">
+                        <h1>Products</h1>
+                        <button class="newproduct-btn">New product</button>
+                    </div>
+
+                    <div class="table-container">
+                        <%if (products.length == 0) {%>
+                            <h1>There are no products to display</h1>
+                        <%} else {%>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Category</th>
+                                        <th>Options</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% products.forEach(product =>{ %>  
+                                        <tr>
+                                            <td><%= product.title%></td>
+                                            <td><%= product.price%></td>
+                                            <td><%= product.category%></td>
+                                            <td>
+                                                <i dataId="<%= product._id%>" class="fas fa-edit"></i></a>
+                                                <i data-id="<%= product._id%>" class="fas fa-trash-alt"></i></a>
+                                            </td>
+                                        </tr>
+                                    <%})%>
+                                </tbody>
+                        </table>
+                          <%}%>
+                    </div>         
+                </div>
+            </main>
+
+            <div class="modal-bg">
+                <div class="newproduct-modal">
+                    <div class="modal-header">
+                        <h1 class="modalTitle">New Product</h1>
+                    </div> 
+                    <form method="POST" id="form" enctype="multipart/form-data">
+                        <label for="title">Title</label>
+                        <input type="text" name="title" class="inputs" id="titleInput">
+
+                        <label for="description">Description</label>
+                        <textarea name="description" type="text"  class="inputs" id="descriptionInput"></textarea>
+
+                        <label for="price">Price</label>
+                        <input type="text" name="price" class="inputs" id="priceInput">
+
+                        <label for="category">Category</label>
+                        <select name="category" class="inputs" id="categoryInput">
+                            <option value="" disabled selected >Select Category...</option>
+                            <option>Ordinateur Bureaux</option>
+                            <option>Ordinateur Portables</option>
+                            <option>Accessoires</option>
+                        </select>
+
+                        <label for="image">Image</label>
+                        <input type="file" name="image" accept="image/*" class="inputs"  id="imageInput">
+
+                        <button id="submitBtn" type="submit">Post</button>
+                    </form>
+                    <i class="far fa-times-circle"></i>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <script>
+            //Navigation
+            const burgerIcon = document.querySelector(".fa-bars");
+            const sidebar = document.querySelector(".sidebar");
+      
+            function toggleNavClasses() {
+              sidebar.classList.toggle("nav-opened");
+      
+              if (burgerIcon.classList.contains("fa-bars")) {
+                burgerIcon.classList.toggle("fa-times");
+              }
+            }
+
+            // New product Modal 
+            const newproductBtn = document.querySelector('.newproduct-btn');
+            const modalBg = document.querySelector('.modal-bg');
+            const form =  document.querySelector('#form')
+
+
+            newproductBtn.addEventListener('click', () =>{
+                titleInput.value = '';
+                descriptionInput.value = '';
+                priceInput.value = '';
+                categoryInput.value = '';
+                submitBtn.innerHTML = 'Post';
+                modalTitle.innerHTML = 'New Product'
+
+                modalBg.classList.add('modal-bg-active')
+            })
+
+            // Close Modal
+            const modalCloseBtn = document.querySelector('.fa-times-circle');
+
+            modalCloseBtn.addEventListener('click', () =>{
+                modalBg.classList.remove('modal-bg-active')
+            })
+
+            // Edit Products
+            const editBtn = document.querySelectorAll('.fa-edit');
+            const titleInput = document.querySelector('#titleInput')
+            const descriptionInput = document.querySelector('#descriptionInput')
+            const priceInput = document.querySelector('#priceInput')
+            const categoryInput = document.querySelector('#categoryInput')
+            const imageInput = document.querySelector('#imageInput')
+            const submitBtn = document.querySelector('#submitBtn')
+            const modalTitle = document.querySelector('.modalTitle')
+
+            const displayEditModal = async (e) =>{
+                const editBtnId = e.target.attributes.dataid.value;
+
+                const response = await fetch(`/api/products/${editBtnId}`);
+                const data = await response.json(); 
+                    
+                titleInput.value = data.title;
+                descriptionInput.value = data.description;
+                priceInput.value = data.price;
+                categoryInput.value = data.category;
+                submitBtn.innerHTML = 'Update';
+                modalTitle.innerHTML = 'Edit Product';
+
+                modalBg.classList.add('modal-bg-active');
+
+                submitBtn.addEventListener('click', (e) =>{
+                        form.addEventListener('submit', (e) =>{
+                            e.preventDefault()
+                        });
+
+                        fetch('/api/products', {
+                            method: 'put',
+                            headers: { 'Content-type': 'application/json' },
+                            body: JSON.stringify({
+                                id: editBtnId,
+                                title: titleInput.value,
+                                description: descriptionInput.value,
+                                price: priceInput.value,
+                                category: categoryInput.value
+                            })
+                        }).then(() =>{
+                            window.location.reload();
+                        }).catch(err =>{
+                            console.log(err)
+                        })
+                })
+            }
+
+            editBtn.forEach(button =>{
+                button.addEventListener('click', displayEditModal)
+            })
+
+            // Delete Product
+            const deleteBtn = document.querySelectorAll('.fa-trash-alt');
+
+            const deleteProduct = (e) =>{
+                const deleteBtnId = e.target.attributes[0].value;
+                fetch('/api/products', {
+                    method: 'DELETE',
+                    headers: { 'Content-type': 'application/json' },
+                    body: JSON.stringify({
+                        id: deleteBtnId
+                    })
+                })
+
+                e.target.parentNode.parentNode.remove()
+            }
+
+            deleteBtn.forEach(button =>{
+                button.addEventListener('click', deleteProduct)
+            })
+          </script>
+    </body>
+</html>
+
+

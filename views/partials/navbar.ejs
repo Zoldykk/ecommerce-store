@@ -1,0 +1,50 @@
+<nav>
+    <div class="logo">
+        <a href="/"><img src="../assets/images/logo.png" alt=""></a>
+    </div>
+
+    <div class="topnav" id="myTopnav">
+        <a href="/store" class="active">Boutique</a>
+        <div class="dropdown">
+            <button class="dropbtn">Ordinateur
+            <i class="fa fa-caret-down" onclick="showDropDown()"></i>
+            </button>
+            <div class="dropdown-content">
+            <a href="/ordinateur-portables">Ordinateur portables</a>
+            <a href="/ordinateur-bureaux">Ordinateur bureaux</a>
+            </div>
+        </div>
+        <a href="/accessoires">Accessoires</a>
+        <a href="/contact">Contact</a>
+    </div> 
+
+    
+
+    <div class="mobile-nav">
+        <i class="fas fa-bars" onclick="toggleNavClasses()"></i>
+    </div>
+</nav>
+
+<script>
+
+    //Navigation
+    const burgerIcon = document.querySelector('.fa-bars');
+    const nav = document.querySelector('#myTopnav');
+    const dropDownBtn = document.querySelector('.fa-caret-down');
+    const dropDown = document.querySelector('.dropdown-content')
+
+    function toggleNavClasses() {
+        nav.classList.toggle('nav-opened');
+    
+        if(burgerIcon.classList.contains('fa-bars')){
+            burgerIcon.classList.toggle('fa-times')
+        }
+        
+    } 
+
+    function showDropDown(){
+        dropDown.classList.toggle('dropdown-opened');
+    }
+    
+
+</script>

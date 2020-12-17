@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Electro-Market | Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/orders.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <a href="/dashboard"
+            ><img src="../assets/images/logo.png" alt=""
+          /></a>
+        </div>
+
+        <div class="main-nav">
+          <div class="username">
+            <h2>Hi, <%= user.username%></h2>
+          </div>
+
+          <ul>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+          <div class="icons">
+            <a href="/logout"><i class="fas fa-power-off"></i></a>
+            <i class="fas fa-bars" onclick="toggleNavClasses()"></i>
+          </div>
+        </div>
+      </nav>
+      <main>
+        <div class="sidebar">
+          <ul>
+            <li class="item">
+              <a href="/dashboard" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li class="item">
+              <a href="/products" class="nav-item">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Products</span>
+              </a>
+            </li>
+            <li class="item">
+              <a href="/orders" class="nav-item">
+                <i class="fas fa-dolly"></i>
+                <span>Orders</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="main-panel">
+          <div class="panel-header">
+            <h1>Orders</h1>
+          </div>
+
+          <div class="table-container">
+            <%if (orders.length == 0) {%>
+            <h1>There are no products to display</h1>
+            <%} else {%>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Order Date</th>
+                  <th>Order ID</th>
+                  <th>Order Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% orders.forEach(order =>{ %> <% let d =
+                order.created_at.getDate(); %> <% let m =
+                order.created_at.getMonth(); %> <% let y =
+                order.created_at.getFullYear(); %>
+                <tr>
+                  <td><%= `${d}/${m}/${y}`%></td>
+                  <td class="orderId-output"><%= order._id%></td>
+                  <td>
+                    <select
+                      name="orderStatus"
+                      data-id="<%= order._id%>"
+                      id="orderStatusInput"
+                    >
+                      <option value="" disabled hidden selected><%= order.orderStatus %></option>
+                      <option>Pending</option>
+                      <option>Processing</option>
+                      <option>Shipped</option>
+                    </select>
+                  </td>
+                  <td>
+                    <button
+                      class="modalBtn"
+                      product-id="<%= order.orderedProduct%>"
+                      order-id="<%= order._id%>"
+                    >
+                      View Details
+                    </button>
+                  </td>
+                </tr>
+                <%})%>
+              </tbody>
+            </table>
+            <%}%>
+          </div>
+        </div>
+      </main>
+
+      <div class="modal-bg">
+        <div class="order-modal">
+          <div class="modal-header">
+            <h1>Order Information</h1>
+          </div>
+
+          <div class="product-row">
+            <div class="product-infos">
+              <div>
+                <label>Title</label>
+                <span class="titleOutput"></span>
+              </div>
+
+              <div>
+                <label>Price</label>
+                <span class="priceOutput"></span>
+              </div>
+
+              <div>
+                <label>Description</label>
+                <span class="descriptionOutput"></span>
+              </div>
+
+              <div>
+                <label>Category</label>
+                <span class="categoryOutput"></span>
+              </div>
+            </div>
+
+            <div class="product-image">
+              <img class="productImg" src="" alt="" />
+            </div>
+          </div>
+
+          <div class="client-info">
+            <div>
+              <label>Name</label>
+              <span class="nameOutput"></span>
+            </div>
+
+            <div>
+              <label>City</label>
+              <span class="cityOutput"></span>
+            </div>
+
+            <div>
+              <label>Phone</label>
+              <span class="phoneOutput"></span>
+            </div>
+          </div>
+
+          <i class="far fa-times-circle"></i>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      //Navigation
+      const burgerIcon = document.querySelector(".fa-bars");
+      const sidebar = document.querySelector(".sidebar");
+
+      function toggleNavClasses() {
+        sidebar.classList.toggle("nav-opened");
+
+        if (burgerIcon.classList.contains("fa-bars")) {
+          burgerIcon.classList.toggle("fa-times");
+        }
+      }
+
+      // New product Modal
+      const modalBtn = document.querySelector(".modalBtn");
+      const modalBg = document.querySelector(".modal-bg");
+
+      modalBtn.addEventListener("click", async () => {
+        modalBg.classList.add("modal-bg-active");
+
+        const orderedProductId = modalBtn.getAttribute("product-id");
+        const response = await fetch(`/api/products/${orderedProductId}`);
+        const product = await response.json();
+
+        // Populate product
+        const titleOutput = document.querySelector(".titleOutput");
+        const priceOutput = document.querySelector(".priceOutput");
+        const descriptionOutput = document.querySelector(".descriptionOutput");
+        const categoryOutput = document.querySelector(".categoryOutput");
+        const productImg = document.querySelector(".productImg");
+
+        titleOutput.innerHTML = product.title;
+        priceOutput.innerHTML = `DH ${product.price}`;
+        descriptionOutput.innerHTML = product.description;
+        categoryOutput.innerHTML = product.category;
+        productImg.setAttribute("src", `./uploads/${product.image}`);
+
+        // Populate client info
+        const nameOutput = document.querySelector(".nameOutput");
+        const cityOutput = document.querySelector(".cityOutput");
+        const phoneOutput = document.querySelector(".phoneOutput");
+
+        const orderId = modalBtn.getAttribute("order-id");
+        await fetch(`/api/orders/${orderId}`).then((response) => {
+          response.json().then((data) => {
+            nameOutput.innerHTML = data.name;
+            cityOutput.innerHTML = data.city;
+            phoneOutput.innerHTML = data.phone;
+          });
+        });
+      });
+
+      // Close Modal
+      const modalCloseBtn = document.querySelector(".fa-times-circle");
+
+      modalCloseBtn.addEventListener("click", () => {
+        modalBg.classList.remove("modal-bg-active");
+      });
+
+      //Update Order Status
+      const orderStatusInput = document.querySelector("#orderStatusInput");
+      const orderStatusId = orderStatusInput.getAttribute("data-id");
+
+      orderStatusInput.addEventListener("change", (e) => {
+        fetch("/api/orders", {
+          method: "put",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify({
+            id: orderStatusId,
+            orderStatus: orderStatusInput.value,
+          }),
+        }).catch((err) => {
+          console.log(err);
+        });
+      });
+    </script>
+  </body>
+
+</html>

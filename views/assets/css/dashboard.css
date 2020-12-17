@@ -1,0 +1,405 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/******************** Navigation ********************/
+
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+}
+
+.logo {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  margin: 10px 10px 0px 20px;
+  width: 50%;
+  min-width: 120px;
+}
+
+.username h2 {
+  font-size: clamp(0.8rem, 5vw, 1.6rem);
+}
+
+.main-nav {
+  width: 250px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.main-nav ul {
+  width: 5%;
+  min-width: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.main-nav ul li {
+  list-style: none;
+}
+
+.main-nav ul li a {
+  color: #e3261e;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.main-nav ul li a:hover {
+  text-decoration: underline;
+}
+
+.main-nav .icons {
+  display: none;
+}
+
+/*********************** Main Content *************************/
+
+main {
+  display: flex;
+}
+
+.sidebar {
+  width: 15%;
+  min-width: 200px;
+  height: auto;
+  background-color: #e6351a;
+}
+
+.sidebar ul li {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.sidebar ul li:hover {
+  background-color: #f1f2f7;
+}
+
+.sidebar ul li a {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  text-decoration: none;
+  font-weight: bold;
+  color: white;
+  border-bottom: 1px solid #ffffff;
+}
+
+.sidebar ul li a:hover {
+  color: #e6351a;
+}
+
+.sidebar ul li span {
+  margin: 0px 0px 0px 5px;
+}
+
+.sidebar ul li i {
+  margin: 0px 3px 0px 10px;
+}
+
+.sidebar .active {
+  background-color: royalblue;
+}
+
+/* Main Panel */
+
+.main-panel {
+  width: 85%;
+  min-height: 100vh;
+  background-color: #f1f2f7;
+}
+
+.card-wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  grid-gap: 10px;
+  justify-items: center;
+  margin-top: 50px;
+}
+
+.card {
+  min-width: 300px;
+  width: 18vw;
+  height: 99%;
+  background-color: white;
+  color: #e6351a;
+  border-radius: 5px;
+  border: 1px solid #e6351a;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.19);
+}
+
+.card-header {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.main-panel i {
+  font-size: 50px;
+  padding: 1rem;
+}
+
+.card-infos {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 1rem;
+}
+
+.card-footer {
+  background-color: #e6351a;
+  color: #ffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.card-footer i {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.card-footer a {
+  font-size: clamp(1rem, 2vw, 1rem);
+  padding: 0px 7px;
+  text-decoration: none;
+  color: #ffff;
+}
+
+.card-footer a:hover {
+  text-decoration: underline;
+}
+
+.widgets {
+  margin-top: 25px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-gap: 10px;
+  justify-items: center;
+}
+
+.orders-card {
+  width: 80%;
+  max-width: 520px;
+  height: 300px;
+  background-color: white;
+  box-shadow: 6px 3px 12px 0 rgba(0, 0, 0, 0.09);
+  -webkit-box-shadow: 6px 3px 12px 0 rgba(0, 0, 0, 0.09);
+  -moz-box-shadow: 6px 3px 12px 0 rgba(0, 0, 0, 0.09);
+  -ms-box-shadow: 6px 3px 12px 0 rgba(0, 0, 0, 0.09);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.2rem 1.2rem;
+}
+
+.orders-card .section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  width: 100%;
+}
+
+.orders-card .section-header a {
+  font-size: clamp(1rem, 2vw, 1rem);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.orders-table {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.orders-table .table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(0.7rem, 1vw, 3rem);
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.orders-table thead tr {
+  background-color: #e6351a;
+  color: white;
+  text-align: left;
+  padding: 0.25rem;
+  font-weight: bold;
+}
+
+.orders-table th,
+.orders-table td {
+  padding: 12px 15px;
+}
+
+.orders-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+tbody tr:nth-child(even) {
+  background: #eee;
+}
+
+.orders-table tbody tr:last-of-type {
+  border-bottom: 2px solid #e6351a;
+}
+
+.todo-card {
+  width: 80%;
+  max-width: 520px;
+  height: 300px;
+  background-color: white;
+  padding: 1.2rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 6px 3px 12px 0 rgba(0, 0, 0, 0.09);
+  -webkit-box-shadow: 6px 3px 12px 0 rgba(0, 0, 0, 0.09);
+  -moz-box-shadow: 6px 3px 12px 0 rgba(0, 0, 0, 0.09);
+  -ms-box-shadow: 6px 3px 12px 0 rgba(0, 0, 0, 0.09);
+}
+
+.todo-card .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+}
+
+.todo-card ul {
+  overflow: hidden;
+  width: 90%;
+  height: 250px;
+  overflow-y: auto;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid grey;
+}
+
+.checkbox {
+  margin: 0px 25px 0px 0px;
+}
+
+.item-span {
+  flex: 1;
+  font-size: 1rem;
+}
+
+.todo-card ul i {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #e6351a;
+}
+
+.todo-card .input-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.todo-card .input-wrapper input {
+  width: 88%;
+  height: 25px;
+  padding: 6px;
+  border-radius: 5px;
+  border: 1px solid #e6351a;
+  font-size: 15px;
+}
+
+@media screen and (max-width: 768px) {
+  .logo {
+    width: 40%;
+  }
+
+  .main-nav {
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .main-nav ul {
+    display: none;
+  }
+
+  .main-nav .icons,
+  a {
+    display: flex;
+    font-size: 24px;
+    color: #e6351a;
+    text-decoration: none;
+  }
+
+  .main-nav .icons i {
+    margin: 0px 7px;
+    cursor: pointer;
+  }
+
+  .main-panel {
+    width: 100%;
+  }
+
+  .sidebar {
+    display: none;
+    transform: translate(-100vw);
+  }
+
+  .sidebar ul {
+    width: 100%;
+  }
+
+  .sidebar ul li {
+    display: flex;
+    justify-content: center;
+  }
+
+  .sidebar ul li span {
+    font-size: clamp(1rem, 1vw, 3rem);
+  }
+
+  .nav-opened {
+    display: flex !important;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform: translate(0vw);
+  }
+
+  .widgets {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .orders-card,
+  .todo-card {
+    width: 85%;
+  }
+}

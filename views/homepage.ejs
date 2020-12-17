@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Vente matériel informatique au meilleur prix</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+    <link rel="stylesheet" href="../assets/css/homepage.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <%- include('./partials/navbar') %>
+        </nav>
+    </header>   
+
+    <main>
+        <div class="intro-grid-container">
+            <div class="intro-image">
+                <img src="../assets/images/laptops.png" alt="">
+            </div>
+            
+            <div class="intro">
+                <img src="../assets/images/logo.png" alt="">
+                <h1>Le leader en vente de matériels informatiques d'occasion et neuf !</h1>
+                <p>Découvrez sans plus tarder notre sélection très large de matériel informatique : ordinateur fixe, ordinateur portable, tablette, accessoires …</p>
+                <a href="/store"><button><i class="fas fa-cart-plus"></i>  Achetez maintenant</button></a>
+            </div>
+        </div>
+
+        <div class="introCards-grid-container">
+            <div class="wrapper">
+                <div class="card">
+                    <i class="fas fa-truck"></i>
+                    <div class="card-info">
+                        <h3>Livraison gratuite</h3>
+                        <span>Dans tout le Maroc</span>
+                    </div>
+                    
+                </div>
+
+                <div class="card">
+                    <i class="fas fa-people-carry"></i>
+                    <div class="card-info">
+                        <h3>Livraison immédiate</h3>
+                        <span>Livrés 8h à 24h</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <i class="fas fa-address-book"></i>
+                    <div class="card-info">
+                        <h3>Satisfait ou remboursé</h3>
+                        <span>Garantie 100%</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <i class="far fa-money-bill-alt"></i>
+                    <div class="card-info">
+                        <h3>Des prix imbattables</h3>
+                        <span>Sur tous nos produits</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="products-container">
+            <div class="products-header">
+                <h1>Nos produits</h1>
+                <img src="../assets/images/laptop.png" alt="">
+            </div>
+
+            <div class="products-cards">
+                <div class="products-row">
+                    <div class="products-card">
+                        <h2>Ordinateur portable</h2>
+                        <span>Trouvez le PC portable qui répond à vos besoins parmi les plus grandes marques. </span>
+                        <i class="fas fa-laptop"></i>
+                        <a href="/ordinateur-portables"><button> Voir les produits  <i class="fas fa-arrow-right"></i></i></button></a>
+                    </div>
+
+                    <div class="products-card">
+                        <h2>Ordinateur bureau</h2>
+                        <span>Grand choix de PC bureau pour tous les budgets parmi les meilleures marques.</span>
+                        <i class="fas fa-desktop"></i>
+                        <a href="/ordinateur-bureaux"><button> Voir les produits  <i class="fas fa-arrow-right"></i></i></button></a>
+                    </div>
+
+                    <div class="products-card">
+                        <h2>Accessoire</h2>
+                        <span>Découvrez notre large gamme des accessoires pour compléter votre ordinateur. </span>
+                        <i class="fas fa-mouse"></i>
+                        <a href="/accessoires"><button> Voir les produits  <i class="fas fa-arrow-right"></i></i></button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-container">
+            <h1>Obtenez jusqu'à 25% de réduction sur vos achats!</h1>
+            <a href="/store"><button><i class="fas fa-cart-plus"></i>  Achetez maintenant</button></a>
+        </div>
+
+        <div class="brands-container">
+            <div class="brands-row">
+                <img src="../assets/images/dell-logo.png" alt="">
+                <img src="../assets/images/lenovo-logo.png" alt="">
+                <img src="../assets/images/hp-logo.png" alt="">
+                <img src="../assets/images/toshiba-logo.png" alt="">
+                <img src="../assets/images/asus-logo.png" alt="">
+                <img src="../assets/images/apple-logo.png" alt="">
+            </div>
+            
+        </div>
+    </main>
+
+    <footer>
+        <%- include('./partials/footer') %>
+    </footer>
+
+
+    <script>
+        const burgerIcon = document.querySelector('.fa-bars');
+        const nav = document.querySelector('#myTopnav');
+        const dropDownBtn = document.querySelector('.fa-caret-down');
+        const dropDown = document.querySelector('.dropdown-content')
+
+        function toggleNavClasses() {
+            nav.classList.toggle('nav-opened');
+        
+            if(burgerIcon.classList.contains('fa-bars')){
+                burgerIcon.classList.toggle('fa-times')
+            }
+            
+        } 
+
+        function showDropDown(){
+            dropDown.classList.toggle('dropdown-opened');
+        }
+        
+
+    </script>
+</body>
+</html>

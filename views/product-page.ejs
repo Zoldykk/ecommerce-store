@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordinateur portables - Vente matériel informatique au meilleur prix</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+    <link rel="stylesheet" href="../assets/css/product-page.css">
+</head>
+<body>
+    <header>
+            <%- include('./partials/navbar') %>
+    </header>   
+
+    <main>
+        <div class="container">
+            <div class="product-section">
+                <div class="img-container">
+                    <img src=<%=`../uploads/${products.image}`%> alt="">
+                </div>
+
+                <div class="product-info">
+                    <h1><%= products.title%></h1>
+                    <span class="price">DH <%= products.price%></span>
+                    <span class="description"><%= products.description%></span>
+                    <a href=<%=`/checkout/${products._id}`%>><button>Commandez Maintenant</button></a>
+                    <div class="category-info">
+                        <span class="category">Catégorie : <a href=<%=`/${products.category}`%>><%= products.category%></a></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="related-products">
+                <%if(relatedProducts.length > 0){%>
+                    <h1>Produits apparentés</h1>
+                <%}%>
+                <div class="cards-row">
+                    <% relatedProducts.forEach(product =>{ %> 
+                            <a href=<%=`/products/${product._id}`%>>
+                                <div class="product-card">
+                                    <img src=<%=`../uploads/${product.image}`%> alt="">
+                                    <span class="category"><%= product.category%></span>
+                                    <h2 class="title"><%= product.title%></h2>
+                                    <span class="price">DH <%= product.price%></span>
+                                </div>
+                            </a>
+                    <%})%>
+                </div>
+            </div>
+                
+                
+        </div>
+    </main>
+
+    <footer>
+        <%- include('./partials/footer') %>
+    </footer>
+
+
+    <script>  
+
+    </script>
+</body>
+</html>

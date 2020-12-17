@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordinateur Bureaux - Vente matériel informatique au meilleur prix</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+    <link rel="stylesheet" href="../assets/css/store.css">
+</head>
+<body>
+    <header>
+            <%- include('./partials/navbar') %>
+    </header>   
+
+    <main>
+        <div class="container">
+            <div class="section-header">
+                <h1>Ordinateur Bureaux</h1>
+            </div>
+
+            <%if (products.length == 0) {%>
+                <h1>There are no products to display</h1>
+            <%} else {%>
+            <div class="products">
+                <% products.forEach(product =>{ %>  
+                <a href=<%=`/products/${product._id}`%>>
+                    <div class="product-card">
+                        <img src=<%=`./uploads/${product.image}`%> alt="">
+                        <span class="category"><%= product.category%></span>
+                        <h4 class="title"><%= product.title%></h4>
+                        <span class="price"><%= product.price%>Dh</span>
+                    </div>
+                </a>
+                <%})%>
+            </div>
+            <%}%>
+        </div>
+    </main>
+
+    <footer>
+        <%- include('./partials/footer') %>
+    </footer>
+
+
+    <script>
+
+    </script>
+</body>
+</html>
