@@ -18,7 +18,7 @@ require("./config/passport")(passport)
 
 // Server Config
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 // Middlewares
 app.use(express.static('views'))
