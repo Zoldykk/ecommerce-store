@@ -8,7 +8,7 @@ const ejs = require('ejs');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
-dotenv = require('dotenv').config()
+require('dotenv').config()
 
 // Import routes 
 const loginRoute = require('./routes/authRoute'); 
@@ -18,7 +18,7 @@ require("./config/passport")(passport)
 
 // Server Config
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
 // Middlewares
 app.use(express.static('views'))
