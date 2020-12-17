@@ -8,7 +8,7 @@ const ejs = require('ejs');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
-const dotenv = require('dotenv').config()
+dotenv = require('dotenv').config()
 
 // Import routes 
 const loginRoute = require('./routes/authRoute'); 
