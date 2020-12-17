@@ -18,7 +18,7 @@ require("./config/passport")(passport)
 
 // Server Config
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 80;
 
 // Middlewares
 app.use(express.static('views'))
@@ -60,5 +60,5 @@ app.use('/register', loginRoute)
 
 // App listener
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`Server running on http://localhost:${port}`)
 })
