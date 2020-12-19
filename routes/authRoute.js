@@ -56,8 +56,8 @@ router.get('/api/products', authController.products__get);
 router.get('/api/products/:productId', authController.products__getById);
 router.delete('/api/products', authController.products__delete);
 router.put('/api/products', authController.products__update);
-router.get('/api/orders', authController.orders__get);
-router.get('/api/orders/:orderId', authController.orders__getById);
+router.get('/api/orders', ensureAuthenticated, authController.orders__get);
+router.get('/api/orders/:orderId', ensureAuthenticated, authController.orders__getById);
 router.post('/api/orders', authController.orders__post);
 router.put('/api/orders', authController.orders__put);
 
