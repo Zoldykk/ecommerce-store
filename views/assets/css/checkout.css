@@ -170,6 +170,15 @@ main {
   padding: 10px 0px;
 }
 
+.container .checkout-main .checkout-form form .error-alert {
+  display: none;
+}
+
+.error-active {
+  display: block !important;
+  color: red;
+}
+
 .container .checkout-main .checkout-form form input {
   display: block;
   width: 100%;
