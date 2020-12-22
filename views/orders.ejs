@@ -77,10 +77,10 @@
                 </tr>
               </thead>
               <tbody>
-                <% orders.forEach(order =>{ %> <% let d =
-                order.created_at.getDate(); %> <% let m =
-                order.created_at.getMonth(); %> <% let y =
-                order.created_at.getFullYear(); %>
+                <% orders.forEach(order =>{ %> 
+                  <% let d = order.created_at.getDate(); %> 
+                  <% let m = order.created_at.getMonth(); %> 
+                  <% let y = order.created_at.getFullYear(); %>
                 <tr>
                   <td><%= `${d}/${m}/${y}`%></td>
                   <td class="orderId-output"><%= order._id%></td>
