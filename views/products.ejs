@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Electro-Market | Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
     <link rel="stylesheet" href="./assets/css/products.css">
 
 </head>
@@ -26,8 +26,8 @@
                     <li><a href="/logout">Logout</a></li>
                   </ul>
                   <div class="icons">
-                    <a href="/logout"><i class="fas fa-power-off"></i></a>
-                    <i class="fas fa-bars" onclick="toggleNavClasses()"></i>
+                    <a href="/logout"><i class="far fa-power-off"></i></a>
+                    <i class="far fa-bars" onclick="toggleNavClasses()"></i>
                   </div>
                 </div>
               </nav>
@@ -37,19 +37,19 @@
                     <ul>
                         <li class="item">
                             <a href="/dashboard" class="nav-item">
-                                <i class="fas fa-home"></i>
+                                <i class="far fa-home"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="item">
                             <a href="/products" class="nav-item">
-                                <i class="fas fa-shopping-cart"></i>
+                                <i class="far fa-shopping-cart"></i>
                                 <span>Products</span>
                             </a>
                         </li>
                         <li class="item">
                             <a href="/orders" class="nav-item">
-                            <i class="fas fa-dolly"></i>
+                            <i class="far fa-dolly"></i>
                             <span>Orders</span>
                             </a>
                         </li>
@@ -82,8 +82,8 @@
                                             <td><%= product.price%></td>
                                             <td><%= product.category%></td>
                                             <td>
-                                                <i dataId="<%= product._id%>" class="fas fa-edit"></i></a>
-                                                <i data-id="<%= product._id%>" class="fas fa-trash-alt"></i></a>
+                                                <i dataId="<%= product._id%>" class="far fa-edit"></i></a>
+                                                <i data-id="<%= product._id%>" class="far fa-trash-alt"></i></a>
                                             </td>
                                         </tr>
                                     <%})%>

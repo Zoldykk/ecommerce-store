@@ -6,7 +6,7 @@
     <title>Electro-Market | Dashboard</title>
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
     />
     <link rel="stylesheet" href="../assets/css/dashboard.css" />
   </head>
@@ -28,8 +28,8 @@
             <li><a href="/logout">Logout</a></li>
           </ul>
           <div class="icons">
-            <a href="/logout"><i class="fas fa-power-off"></i></a>
-            <i class="fas fa-bars" onclick="toggleNavClasses()"></i>
+            <a href="/logout"><i class="far fa-power-off"></i></a>
+            <i class="far fa-bars" onclick="toggleNavClasses()"></i>
           </div>
         </div>
       </nav>
@@ -38,19 +38,19 @@
           <ul>
             <li class="item">
               <a href="/dashboard" class="nav-item">
-                <i class="fas fa-home"></i>
+                <i class="far fa-home"></i>
                 <span>Dashboard</span>
               </a>
             </li>
             <li class="item">
               <a href="/products" class="nav-item">
-                <i class="fas fa-shopping-cart"></i>
+                <i class="far fa-shopping-cart"></i>
                 <span>Products</span>
               </a>
             </li>
             <li class="item">
               <a href="/orders" class="nav-item">
-                <i class="fas fa-dolly"></i>
+                <i class="far fa-dolly"></i>
                 <span>Orders</span>
               </a>
             </li>
@@ -61,7 +61,7 @@
           <div class="card-wrapper">
             <div class="card card-products">
               <div class="card-header">
-                <i class="fas fa-shopping-cart"></i>
+                <i class="far fa-shopping-cart"></i>
                 <div class="card-infos">
                   <h1><%= products.length %></h1>
                   <span>Products</span>
@@ -69,13 +69,13 @@
               </div>
               <div class="card-footer">
                 <a href="/products">View Details</a>
-                <a href="/products"><i class="fas fa-arrow-circle-right"></i></a>
+                <a href="/products"><i class="far fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
             <div class="card card-customers">
               <div class="card-header">
-                <i class="fas fa-users"></i>
+                <i class="far fa-users"></i>
                 <div class="card-infos">
                   <h1><%= orders.length %></h1>
                   <span>Customers</span>
@@ -83,13 +83,13 @@
               </div>
               <div class="card-footer">
                 <a href="/orders">View Details</a>
-                <a href="/orders"><i class="fas fa-arrow-circle-right"></i></a>
+                <a href="/orders"><i class="far fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
             <div class="card card-orders">
               <div class="card-header">
-                <i class="fas fa-dolly"></i>
+                <i class="far fa-dolly"></i>
                 <div class="card-infos">
                   <h1><%= orders.length %></h1>
                   <span>Orders</span>
@@ -97,7 +97,7 @@
               </div>
               <div class="card-footer">
                 <a href="/orders#">View Details</a>
-                <a href="/orders"><i class="fas fa-arrow-circle-right"></i></a>
+                <a href="/orders"><i class="far fa-arrow-circle-right"></i></a>
               </div>
             </div>
           </div>
@@ -109,7 +109,7 @@
                 <a href="/orders"
                   >View Full List<i
                     style="font-size: 15px; color: #e6351a"
-                    class="fas fa-arrow-circle-right"
+                    class="far fa-arrow-circle-right"
                   ></i>
                 </a>
               </div>

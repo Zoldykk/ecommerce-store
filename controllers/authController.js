@@ -137,7 +137,7 @@ exports.login__view = (req, res, next) =>{
 
 exports.dashboard__view = async (req, res, next) =>{
     const products = await Product.find();
-    const orders = await Order.find();
+    const orders = await Order.find().sort({ _id: -1 }).limit(6);
     res.render('../views/dashboard.ejs', {
         user: req.user,
         products: products,
