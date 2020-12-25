@@ -48,7 +48,7 @@ app.use((req,res,next)=> {
 })
 
 // Db Config
-const URI = 'mongodb+srv://zaki:zaki@cluster0.dk3io.mongodb.net/Cluster0?retryWrites=true&w=majority';
+const URI = process.env.dbURI;
 mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true },  () => {console.log('Connected to Db')})
 
 // View Engine
