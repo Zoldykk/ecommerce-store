@@ -77,10 +77,10 @@
                 </tr>
               </thead>
               <tbody>
-                <% orders.forEach(order =>{ %> 
-                  <% let d = order.created_at.getDate(); %> 
-                  <% let m = order.created_at.getMonth(); %> 
-                  <% let y = order.created_at.getFullYear(); %>
+                <% orders.forEach(order =>{ %> <% let d =
+                order.created_at.getDate(); %> <% let m =
+                order.created_at.getMonth(); %> <% let y =
+                order.created_at.getFullYear(); %>
                 <tr>
                   <td><%= `${d}/${m}/${y}`%></td>
                   <td class="orderId-output"><%= order._id%></td>
@@ -90,7 +90,9 @@
                       data-id="<%= order._id%>"
                       id="orderStatusInput"
                     >
-                      <option value="" disabled hidden selected><%= order.orderStatus %></option>
+                      <option value="" disabled hidden selected>
+                        <%= order.orderStatus %>
+                      </option>
                       <option>Pending</option>
                       <option>Processing</option>
                       <option>Shipped</option>
@@ -184,40 +186,44 @@
       }
 
       // New product Modal
-      const modalBtn = document.querySelector(".modalBtn");
+      const modalBtn = document.querySelectorAll(".modalBtn");
       const modalBg = document.querySelector(".modal-bg");
 
-      modalBtn.addEventListener("click", async () => {
-        modalBg.classList.add("modal-bg-active");
+      modalBtn.forEach((button) => {
+        button.addEventListener("click", async () => {
+          modalBg.classList.add("modal-bg-active");
 
-        const orderedProductId = modalBtn.getAttribute("product-id");
-        const response = await fetch(`/api/products/${orderedProductId}`);
-        const product = await response.json();
+          const orderedProductId = button.getAttribute("product-id");
+          const response = await fetch(`/api/products/${orderedProductId}`);
+          const product = await response.json();
 
-        // Populate product
-        const titleOutput = document.querySelector(".titleOutput");
-        const priceOutput = document.querySelector(".priceOutput");
-        const descriptionOutput = document.querySelector(".descriptionOutput");
-        const categoryOutput = document.querySelector(".categoryOutput");
-        const productImg = document.querySelector(".productImg");
+          // Populate product
+          const titleOutput = document.querySelector(".titleOutput");
+          const priceOutput = document.querySelector(".priceOutput");
+          const descriptionOutput = document.querySelector(
+            ".descriptionOutput"
+          );
+          const categoryOutput = document.querySelector(".categoryOutput");
+          const productImg = document.querySelector(".productImg");
 
-        titleOutput.innerHTML = product.title;
-        priceOutput.innerHTML = `DH ${product.price}`;
-        descriptionOutput.innerHTML = product.description;
-        categoryOutput.innerHTML = product.category;
-        productImg.setAttribute("src", `./uploads/${product.image}`);
+          titleOutput.innerHTML = product.title;
+          priceOutput.innerHTML = `DH ${product.price}`;
+          descriptionOutput.innerHTML = product.description;
+          categoryOutput.innerHTML = product.category;
+          productImg.setAttribute("src", `./uploads/${product.image}`);
 
-        // Populate client info
-        const nameOutput = document.querySelector(".nameOutput");
-        const cityOutput = document.querySelector(".cityOutput");
-        const phoneOutput = document.querySelector(".phoneOutput");
+          // Populate client info
+          const nameOutput = document.querySelector(".nameOutput");
+          const cityOutput = document.querySelector(".cityOutput");
+          const phoneOutput = document.querySelector(".phoneOutput");
 
-        const orderId = modalBtn.getAttribute("order-id");
-        await fetch(`/api/orders/${orderId}`).then((response) => {
-          response.json().then((data) => {
-            nameOutput.innerHTML = data.name;
-            cityOutput.innerHTML = data.city;
-            phoneOutput.innerHTML = data.phone;
+          const orderId = button.getAttribute("order-id");
+          await fetch(`/api/orders/${orderId}`).then((response) => {
+            response.json().then((data) => {
+              nameOutput.innerHTML = data.name;
+              cityOutput.innerHTML = data.city;
+              phoneOutput.innerHTML = data.phone;
+            });
           });
         });
       });
@@ -247,5 +253,4 @@
       });
     </script>
   </body>
-
 </html>

@@ -159,7 +159,7 @@ exports.dashboard__products__view = async (req, res, next) =>{
 }
 
 exports.dashboard__orders__view = async (req, res, next) =>{
-    const orders = await Order.find();
+    const orders = await Order.find().sort({ _id: -1 });
     res.render('../views/orders.ejs', {
         user: req.user,
         orders: orders
