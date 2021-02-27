@@ -30,40 +30,38 @@ const upload = multer({storage: storage, fileFilter: fileFilter});
 
 
 //Dashboard Routes
-router.get('/admin', authController.login__view)
-router.post('/', authController.login__post)
-router.get('/dashboard', ensureAuthenticated, authController.dashboard__view)
-router.get('/products', ensureAuthenticated, authController.dashboard__products__view)
-router.get('/orders', ensureAuthenticated, authController.dashboard__orders__view)
-router.post('/products', upload.single('image'), authController.dashboard__products__post)
-router.post('/dashboard',(authController.dashboard__post))
-router.get('/logout',(authController.logout__get))
+router.get('/admin', authController.loginView)
+router.post('/', authController.loginPost)
+router.get('/dashboard', ensureAuthenticated, authController.dashboardView)
+router.get('/products', ensureAuthenticated, authController.dashboardProductsView)
+router.get('/orders', ensureAuthenticated, authController.dashboardOrdersView)
+router.post('/products', upload.single('image'), authController.dashboardProductsPost)
+router.post('/dashboard',(authController.dashboardPost))
+router.get('/logout',(authController.logoutGet))
 
 // Website Routes
 
-router.get('/', authController.homepage__view)
-router.get('/store', authController.store__view)
-router.get('/ordinateur-portables', authController.laptops__view)
-router.get('/ordinateur-bureaux', authController.desktops__view)
-router.get('/accessoires', authController.accessoires__view)
-router.get('/products/:id', authController.singleProduct__view)
-router.get('/checkout/:id', authController.checkout__view)
-router.get('/checkout-success', authController.checkout__success__view)
-router.get('/contact', authController.contact__view)
+router.get('/', authController.homepageView)
+router.get('/store', authController.storeView)
+router.get('/ordinateur-portables', authController.laptopsView)
+router.get('/ordinateur-bureaux', authController.desktopsView)
+router.get('/accessoires', authController.accessoiresView)
+router.get('/products/:id', authController.singleProductView)
+router.get('/checkout/:id', authController.checkoutView)
+router.get('/checkout-success', authController.checkoutSuccessView)
+router.get('/contact', authController.contactView)
 
 // Api Routes
-router.get('/api/products', authController.products__get);
-router.get('/api/products/:productId', authController.products__getById);
-router.delete('/api/products', authController.products__delete);
-router.put('/api/products', authController.products__update);
-router.get('/api/orders',ensureAuthenticated, authController.orders__get);
-router.get('/api/orders/:orderId',ensureAuthenticated, authController.orders__getById);
-router.get('/api/orders', ensureAuthenticated, authController.orders__get);
-router.get('/api/orders/:orderId', ensureAuthenticated, authController.orders__getById);
-router.post('/api/orders', authController.orders__post);
-router.put('/api/orders', authController.orders__put);
+router.get('/api/products', authController.productsGet);
+router.get('/api/products/:productId', authController.productsGetById);
+router.delete('/api/products', authController.productsDelete);
+router.put('/api/products', authController.productsUpdate);
+router.get('/api/orders',ensureAuthenticated, authController.ordersGet);
+router.get('/api/orders/:orderId',ensureAuthenticated, authController.ordersGetById);
+router.post('/api/orders', authController.ordersPost);
+router.put('/api/orders', authController.ordersPut);
 
 // 404 endpoint
-router.get('*', authController.notFound__view);
+router.get('*', authController.notFoundView);
 
 module.exports = router

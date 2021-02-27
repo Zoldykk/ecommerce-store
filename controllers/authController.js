@@ -9,39 +9,39 @@ const multer = require('multer');
 
 
 // Website Handlers
-exports.homepage__view = (req, res, next) =>{
+exports.homepageView = (req, res, next) =>{
     res.render(path.resolve('./views/homepage.ejs'));
 }
 
-exports.store__view = async (req, res, next) =>{
+exports.storeView = async (req, res, next) =>{
     const products = await Product.find();
     res.render(path.resolve('./views/store.ejs'), {
         products: products
     });
 }
 
-exports.laptops__view = async (req, res, next) =>{
+exports.laptopsView = async (req, res, next) =>{
     const products = await Product.find({ category: 'Ordinateur Portables' } );
     res.render(path.resolve('./views/laptops.ejs'), {
         products: products
     });
 }
 
-exports.desktops__view = async (req, res, next) =>{
+exports.desktopsView = async (req, res, next) =>{
     const products = await Product.find({ category: 'Ordinateur Bureaux' } );
     res.render(path.resolve('./views/desktops.ejs'), {
         products: products
     });
 }
 
-exports.accessoires__view = async (req, res, next) =>{
+exports.accessoiresView = async (req, res, next) =>{
     const products = await Product.find({ category: 'Accessoires' } );
     res.render(path.resolve('./views/accessoires.ejs'), {
         products: products
     });
 }
 
-exports.singleProduct__view = async (req, res, next) =>{
+exports.singleProductView = async (req, res, next) =>{
     const products = await Product.findById(req.params.id);
 
     Product.find({ category: products.category, _id: { $ne: products._id } })
@@ -55,34 +55,34 @@ exports.singleProduct__view = async (req, res, next) =>{
     );
 }
 
-exports.checkout__view = async(req, res, next) =>{
+exports.checkoutView = async(req, res, next) =>{
     const product = await Product.findById(req.params.id);
     res.render(path.resolve('./views/checkout.ejs'), {
         product: product
     });
 }
 
-exports.checkout__success__view = async(req, res, next) =>{
+exports.checkoutSuccessView = async(req, res, next) =>{
     res.render(path.resolve('./views/checkout-success.ejs'));
 }
 
-exports.contact__view = (req, res, next) =>{
+exports.contactView = (req, res, next) =>{
     res.render(path.resolve('./views/contact.ejs'));
 }
 
 // Api Handlers
 
-exports.products__get = async (req, res, next) =>{
+exports.productsGet = async (req, res, next) =>{
     const products = await Product.find();
     res.json(products)
 }
 
-exports.orders__get = async (req, res, next) =>{
+exports.ordersGet = async (req, res, next) =>{
     const orders = await Order.find();
     res.json(orders)
 }
 
-exports.orders__post = async (req, res, next) =>{
+exports.ordersPost = async (req, res, next) =>{
     const newOrder = await new Order({
         name: req.body.name,
         city: req.body.city,
@@ -94,7 +94,7 @@ exports.orders__post = async (req, res, next) =>{
     res.render(path.resolve('./views/checkout-success.ejs'));
 }
 
-exports.orders__put = async (req, res, next) =>{
+exports.ordersPut = async (req, res, next) =>{
     const order = await Order.findOneAndUpdate({_id: req.body.id}, 
         {$set: {
             orderStatus: req.body.orderStatus,
@@ -106,16 +106,16 @@ exports.orders__put = async (req, res, next) =>{
     res.redirect('/orders')    
 }
 
-exports.products__getById = async (req, res, next) =>{
+exports.productsGetById = async (req, res, next) =>{
     const product = await Product.findById(req.params.productId);
     res.json(product)
 }
 
-exports.products__delete = async (req, res) =>{
+exports.productsDelete = async (req, res) =>{
     const products = await Product.findByIdAndDelete(req.body.id, {useFindAndModify: false});
 }
 
-exports.products__update = async (req, res) =>{
+exports.productsUpdate = async (req, res) =>{
     const product = await Product.findOneAndUpdate({_id: req.body.id}, 
         {$set: {
             title: req.body.title,
@@ -131,11 +131,11 @@ exports.products__update = async (req, res) =>{
 
 // Dashboard Handlers
 
-exports.login__view = (req, res, next) =>{
+exports.loginView = (req, res, next) =>{
     res.render(path.resolve('./views/admin-login.ejs'));
 }
 
-exports.dashboard__view = async (req, res, next) =>{
+exports.dashboardView = async (req, res, next) =>{
     const products = await Product.find();
     const orders = await Order.find().sort({ _id: -1 }).limit(6);
     res.render('../views/dashboard.ejs', {
@@ -145,7 +145,7 @@ exports.dashboard__view = async (req, res, next) =>{
     });
 }
 
-exports.dashboard__products__view = async (req, res, next) =>{
+exports.dashboardProductsView = async (req, res, next) =>{
     Product.find()
         .then((result) =>{
             res.render('../views/products.ejs', {
@@ -158,7 +158,7 @@ exports.dashboard__products__view = async (req, res, next) =>{
         })
 }
 
-exports.dashboard__orders__view = async (req, res, next) =>{
+exports.dashboardOrdersView = async (req, res, next) =>{
     const orders = await Order.find().sort({ _id: -1 });
     res.render('../views/orders.ejs', {
         user: req.user,
@@ -166,12 +166,12 @@ exports.dashboard__orders__view = async (req, res, next) =>{
     });
 }
 
-exports.orders__getById = async (req, res, next) =>{
+exports.ordersGetById = async (req, res, next) =>{
     const product = await Order.findById(req.params.orderId);
     res.json(product)
 }
 
-exports.dashboard__products__post =  async (req, res, next) =>{
+exports.dashboardProductsPost =  async (req, res, next) =>{
     const newProduct = await new Product({
         title: req.body.title,
         description: req.body.description,
@@ -183,7 +183,7 @@ exports.dashboard__products__post =  async (req, res, next) =>{
     res.redirect('/products')
 };
 
-exports.login__post = (req, res, next) =>{
+exports.loginPost = (req, res, next) =>{
     passport.authenticate('local',{
         successRedirect : '/dashboard',
         failureRedirect : '/admin',
@@ -192,14 +192,14 @@ exports.login__post = (req, res, next) =>{
 }
 
 
-exports.logout__get = (req, res, next) =>{
+exports.logoutGet = (req, res, next) =>{
     req.logout();
     req.flash('success_msg','Now logged out');
     res.redirect('/admin');
 }
 
 
-exports.dashboard__post = async (req, res, next) =>{
+exports.dashboardPost = async (req, res, next) =>{
     const newPost = await new Post({
         title: req.body.title,
         content: req.body.content,
@@ -211,7 +211,7 @@ exports.dashboard__post = async (req, res, next) =>{
 
 // 404 Handler
 
-exports.notFound__view = (req, res, next) =>{
+exports.notFoundView = (req, res, next) =>{
     res.render(path.resolve('./views/404.ejs'));
 }
 
